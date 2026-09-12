@@ -7,6 +7,7 @@ function TableHeader() {
         <th>Name</th>
         <th>Job</th>
         <th>Remove</th>
+        <th>Id </th>
       </tr>
     </thead>
   );
@@ -19,12 +20,12 @@ function TableBody(props) {
         <td>{row.name}</td>
         <td>{row.job}</td>
         <td>
-          <button onClick={() => props.removeCharacter(index)}>Delete</button>
+          <button onClick={() => props.removeCharacter(row.id)}>Delete</button>
         </td>
+        <td>{row.id}</td>
       </tr>
     );
   });
-  console.log(rows);
   return <tbody>{rows}</tbody>;
 }
 function Table(props) {

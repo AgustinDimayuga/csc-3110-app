@@ -23,11 +23,22 @@ function MyApp() {
     </div>
   );
 
-  function removeOneCharacter(index) {
-    const updated = characters.filter((_, i) => {
-      return i !== index;
-    });
-    setCharacters(updated);
+  async function removeOneCharacter(id) {
+    try {
+      const response = await fetch(`Http://localhost:8000/users/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw Error;
+      }
+      const updated = characters.filter((c, i) => {
+        return c.id !== id;
+      });
+      console.log(updated);
+      setCharacters(updated);
+    } catch (e) {
+      console.log(e);
+    }
   }
   async function updateList(person) {
     try {
@@ -35,7 +46,9 @@ function MyApp() {
       if (response.status != 201) {
         throw Error;
       }
-      setCharacters([...characters, person]);
+      const data = await response.json();
+      setCharacters([...characters, data]);
+      console.log(characters);
     } catch (error) {
       console.log(error);
     }
