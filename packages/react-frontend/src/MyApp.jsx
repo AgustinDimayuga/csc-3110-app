@@ -8,8 +8,10 @@ function MyApp() {
     async function fetchUsers() {
       try {
         const response = await fetch("http://localhost:8000/users");
+        console.log(response);
         const data = await response.json();
-        setCharacters(data["users_list"]);
+        console.log(data);
+        setCharacters(data);
       } catch (e) {
         console.log(e);
       }
@@ -25,7 +27,7 @@ function MyApp() {
 
   async function removeOneCharacter(id) {
     try {
-      const response = await fetch(`Http://localhost:8000/users/${id}`, {
+      const response = await fetch(`http://localhost:8000/users/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {
@@ -57,7 +59,7 @@ function MyApp() {
   // src/MyApp.js (a new inner function inside MyApp())
 
   function postUser(person) {
-    const promise = fetch("Http://localhost:8000/users", {
+    const promise = fetch("http://localhost:8000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
